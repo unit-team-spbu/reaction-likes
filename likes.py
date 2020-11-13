@@ -1,5 +1,5 @@
 from nameko.web.handlers import http
-from nameko.rpc import rpc
+from nameko.rpc import rpc, RpcProxy
 from nameko.events import EventDispatcher
 from nameko_mongodb import MongoDatabase
 from werkzeug.wrappers import Request, Response
@@ -12,6 +12,7 @@ class Likes:
     name = "likes"
 
     db = MongoDatabase()
+    logger_rpc = RpcProxy('logger')
     dispatch = EventDispatcher()
 
     # Logic
@@ -105,6 +106,8 @@ class Likes:
         '''
         like_data should be [user_id, event_id] 
         '''
+        self.logger_rpc.log(self.name, self.new_like.__name__, like_data, "Info", "Saving like")
+
         is_new_info = self._new_like(like_data)
         if is_new_info:
             self.dispatch("like", like_data)
@@ -114,6 +117,8 @@ class Likes:
         '''
         like_data should be [user_id, event_id] 
         '''
+        self.logger_rpc.log(self.name, self.cancel_like.__name__, like_data, "Info", "Cancelling like")
+
         is_deleted_info = self._cancel_like(like_data)
         if is_deleted_info:
             self.dispatch("like_cancel", like_data)

@@ -195,7 +195,7 @@ class Likes:
     @http("GET", "/get_likes/<id>")
     def get_likes_by_id_http(self, request: Request, id):
         '''
-            POST http://localhost:8000/get_likes/<id> HTTP/1.1
+            GET http://localhost:8000/get_likes/<id> HTTP/1.1
             Content-Type: application/json
         '''
         likes = self._get_likes(id)

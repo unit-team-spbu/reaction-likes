@@ -82,14 +82,12 @@ Content-Type: application/json
 
 ```rst
 GET http://localhost:8000/get_likes/<id> HTTP/1.1
-Content-Type: application/json
 ```
 
 Узнать, понравилось ли пользователю данное мероприятие:
 
 ```rst
 GET http://localhost:8000/is_liked/<user_id>/<event_id> HTTP/1.1
-Content-Type: application/json
 ```
 
 ## Развертывание и запуск
